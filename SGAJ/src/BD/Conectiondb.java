@@ -20,11 +20,10 @@ public class Conectiondb {
 //        }
 //        return conn;
 //    }
-
     public static Statement sta(Statement st) throws SQLException {
         //conn = Enlace(conn);
         conn = BdConexion.getConexion();
-        
+
         st = conn.createStatement();
         return st;
     }
@@ -35,7 +34,7 @@ public class Conectiondb {
         return rs;
     }
 
-    public static ResultSet EnlSalidas(ResultSet rs,String fecha1, String fecha2) throws SQLException {
+    public static ResultSet EnlSalidas(ResultSet rs, String fecha1, String fecha2) throws SQLException {
         st = sta(st);
         rs = st.executeQuery("SELECT\n"
                 + "     salida.idsalida AS salida_idsalida,\n"
@@ -70,7 +69,7 @@ public class Conectiondb {
         return rs;
     }
 
-    public static ResultSet EnlIngresos(ResultSet rs,String fecha1, String fecha2) throws SQLException {
+    public static ResultSet EnlIngresos(ResultSet rs, String fecha1, String fecha2) throws SQLException {
         st = sta(st);
         rs = st.executeQuery("SELECT\n"
                 + "     compra.idcompra AS compra_idcompra,\n"
@@ -81,6 +80,7 @@ public class Conectiondb {
                 + "     \n"
                 + "FROM     usuario INNER JOIN compra ON usuario.idusuario = compra.usuario_idusuario\n"
                 + "     INNER JOIN proveedor ON compra.proveedor_idproveedor = proveedor.idproveedor where compra.fecha BETWEEN '" + fecha1 + "' and '" + fecha2 + "' order BY compra.idcompra desc");
+
         return rs;
     }
 
