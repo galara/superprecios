@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="REPORTE DE INGRESOS A  BODEGA" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="764" leftMargin="14" rightMargin="14" topMargin="20" bottomMargin="20" uuid="8ceac3de-ab50-4dcf-b2b6-aeec95e5e913">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     producto.`codigo`,
+     producto.`nombre`,
+     usuario.`nombreusuario`,
+     compra.`fecha`,
+     compra.`idcompra`,
+     compra.`total`,
+     lote.`cantidad` AS lote_cantidad,
+     lote.`precio` AS lote_precio,
+     lote.`idlote` AS lote_idlote,
+     lote.`stock` AS lote_stock,
+     proveedor.`nitp` AS proveedor_nitp,
+     compra.`numdoc` AS compra_numdoc,
+     proveedor.`nombre` AS proveedor_nombre,
+     unidad.`Nombre` AS unidad_Nombre
+FROM
+     `compra` compra INNER JOIN `usuario` usuario ON compra.`usuario_idusuario` = usuario.`idusuario`
+     INNER JOIN `proveedor` proveedor ON compra.`proveedor_idproveedor` = proveedor.`idproveedor`
+     INNER JOIN `lote` lote ON compra.`idcompra` = lote.`compra_idcompra`
+     INNER JOIN `producto` producto ON lote.`producto_idproducto` = producto.`idproducto`
+     INNER JOIN `unidad` unidad ON producto.`idunidad` = unidad.`idunidad`
+WHERE
+     lote.stock > 0]]>
+	</queryString>
+	<field name="codigo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombreusuario" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idcompra" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="lote_cantidad" class="java.lang.Float"/>
+	<field name="lote_precio" class="java.lang.Float"/>
+	<field name="lote_idlote" class="java.lang.Integer"/>
+	<field name="lote_stock" class="java.lang.Float"/>
+	<field name="proveedor_nitp" class="java.lang.String"/>
+	<field name="compra_numdoc" class="java.lang.Integer"/>
+	<field name="proveedor_nombre" class="java.lang.String"/>
+	<field name="unidad_Nombre" class="java.lang.String"/>
+	<sortField name="nombre"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="78">
+			<subreport>
+				<reportElement uuid="4ce16950-256e-4059-99e6-68337d154d9a" x="141" y="1" width="498" height="69"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["empresa_subreport.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement uuid="836c0b9c-01c7-4f7c-a70b-0d165922851b" x="0" y="60" width="752" height="16" forecolor="#3333FF"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE STOCKS POR LOTES]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement uuid="46d337bc-0abd-46da-81b8-5b0ecdd7b000" x="0" y="20" width="761" height="1" forecolor="#666666"/>
+			</line>
+			<staticText>
+				<reportElement uuid="375cd8a9-ca84-48cf-97bc-76833c8151b6" mode="Opaque" x="0" y="0" width="51" height="20" forecolor="#006699" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1dafb698-f839-4601-b1ac-b151f9734da7" mode="Opaque" x="51" y="0" width="198" height="20" forecolor="#006699" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="51d7aeba-1db3-4331-bc31-5e4363fc2616" mode="Opaque" x="465" y="0" width="59" height="20" forecolor="#006699" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No.Factura]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="32db8b0e-945a-444d-81f7-123ea5b78ab6" mode="Opaque" x="583" y="0" width="180" height="20" forecolor="#006699" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Proveedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6d4843da-037c-4f46-af04-6c57c7eb75f3" mode="Opaque" x="309" y="0" width="53" height="20" forecolor="#006699" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Stock]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0fcf4358-bd5d-45a7-b1ae-8206862d6113" mode="Opaque" x="361" y="0" width="53" height="20" forecolor="#006699" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Precio/U]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="44197221-dec0-42ac-9a44-4c2249320659" mode="Opaque" x="413" y="0" width="53" height="20" forecolor="#006699" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[#Compra]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="375cd8a9-ca84-48cf-97bc-76833c8151b6" mode="Opaque" x="523" y="0" width="60" height="20" forecolor="#006699" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lote]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6d4843da-037c-4f46-af04-6c57c7eb75f3" mode="Opaque" x="249" y="0" width="60" height="20" forecolor="#006699" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unidad]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18">
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="8a881ac7-eacb-41d8-acf8-205997eef8e7" x="0" y="0" width="57" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="dfb672b5-7dcc-479e-a018-43bb43911fd7" x="57" y="0" width="196" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+				<reportElement uuid="4f4c0022-9279-4065-a4cd-7ffc13719f9c" x="313" y="0" width="53" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lote_stock}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+				<reportElement uuid="e610c393-e592-43d8-bcdb-3c1f50c04419" x="365" y="0" width="53" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lote_precio}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="fc3769d1-48ec-4c67-a6f5-955ee5885a5e" x="417" y="0" width="53" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idcompra}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="af462b36-3ad4-4729-9706-5f0878485caa" x="469" y="0" width="59" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{compra_numdoc}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="c2715e53-f4bc-44f8-b8b1-e61c1e62beb7" x="587" y="0" width="178" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{proveedor_nombre}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="4f4c0022-9279-4065-a4cd-7ffc13719f9c" x="527" y="0" width="60" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lote_idlote}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="8d05af7d-f628-4271-b081-9071085eeaf8" x="0" y="17" width="761" height="1"/>
+			</line>
+			<textField>
+				<reportElement uuid="955a54da-bbb0-4124-9313-152f6a304c45" x="253" y="0" width="60" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{unidad_Nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

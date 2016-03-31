@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="salida_producto" language="groovy" columnCount="2" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="386" leftMargin="10" rightMargin="10" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="8ceac3de-ab50-4dcf-b2b6-aeec95e5e913">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fecha1" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="id" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\otto\\Documents\\NetBeansProjects\\trunk\\POSJ\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaf" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select codigo,nombre from producto where idproducto=$P{id}]]>
+	</queryString>
+	<field name="codigo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="totalE" class="java.lang.Double"/>
+	<variable name="totalS" class="java.lang.Double"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="70">
+			<subreport>
+				<reportElement uuid="4ce16950-256e-4059-99e6-68337d154d9a" x="136" y="1" width="498" height="69"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["empresa_subreport.jasper"]]></subreportExpression>
+			</subreport>
+			<rectangle radius="10">
+				<reportElement uuid="8d42a821-6ee7-4dcf-831c-5d5bc790fb97" x="475" y="22" width="277" height="45"/>
+			</rectangle>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="1007f918-4a82-4a7c-9ccd-328faa6efd5e" x="475" y="2" width="123" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a30ee8e5-7a87-4321-8dfa-d9f6c648b2a1" x="475" y="27" width="64" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom" rotation="None">
+					<font fontName="Calisto MT" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="1e8117be-0905-4d90-9d36-b2b22e6e71ae" x="539" y="27" width="213" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calisto MT" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a30ee8e5-7a87-4321-8dfa-d9f6c648b2a1" x="475" y="48" width="64" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom" rotation="None">
+					<font fontName="Calisto MT" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Producto]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="a68ff687-cc8d-4b47-b5e7-febef71316e0" x="539" y="50" width="213" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calisto MT" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a30ee8e5-7a87-4321-8dfa-d9f6c648b2a1" x="598" y="4" width="42" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom" rotation="None">
+					<font fontName="Calisto MT" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hasta]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="1007f918-4a82-4a7c-9ccd-328faa6efd5e" x="640" y="2" width="123" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaf}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="21">
+			<staticText>
+				<reportElement uuid="a30ee8e5-7a87-4321-8dfa-d9f6c648b2a1" x="3" y="0" width="367" height="21"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom" rotation="None">
+					<font fontName="Calisto MT" size="17" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Entradas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a30ee8e5-7a87-4321-8dfa-d9f6c648b2a1" x="385" y="0" width="367" height="21"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom" rotation="None">
+					<font fontName="Calisto MT" size="17" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Salidas]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<subreport>
+				<reportElement uuid="15342543-5cf9-4b4c-b540-e35cf05274b3" x="385" y="0" width="387" height="20"/>
+				<subreportParameter name="id2">
+					<subreportParameterExpression><![CDATA[$P{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fecha3">
+					<subreportParameterExpression><![CDATA[$P{fechaf}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fecha2">
+					<subreportParameterExpression><![CDATA[$P{fecha1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="total1" toVariable="totalS"/>
+				<subreportExpression><![CDATA["subreportesalida.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="15342543-5cf9-4b4c-b540-e35cf05274b3" x="0" y="0" width="370" height="20"/>
+				<subreportParameter name="id2">
+					<subreportParameterExpression><![CDATA[$P{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fecha3">
+					<subreportParameterExpression><![CDATA[$P{fechaf}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fecha2">
+					<subreportParameterExpression><![CDATA[$P{fecha1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="total" toVariable="totalE"/>
+				<subreportExpression><![CDATA["subreporteentrada.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<summary>
+		<band height="20">
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="803f0625-c513-4e6e-b932-3ab492b19f0e" x="167" y="0" width="100" height="20"/>
+				<textElement>
+					<font fontName="Calisto MT" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($V{totalE}.equals(null)? 0 : $V{totalE})]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="803f0625-c513-4e6e-b932-3ab492b19f0e" x="541" y="0" width="100" height="20"/>
+				<textElement>
+					<font fontName="Calisto MT" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($V{totalS}.equals(null)? 0 : $V{totalS})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a30ee8e5-7a87-4321-8dfa-d9f6c648b2a1" x="3" y="0" width="118" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom" rotation="None">
+					<font fontName="Calisto MT" size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Total Entradas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a30ee8e5-7a87-4321-8dfa-d9f6c648b2a1" x="396" y="0" width="118" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom" rotation="None">
+					<font fontName="Calisto MT" size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Total Salidas]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

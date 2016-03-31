@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte Salidas" pageWidth="396" pageHeight="609" columnWidth="354" leftMargin="28" rightMargin="14" topMargin="28" bottomMargin="45" isSummaryWithPageHeaderAndFooter="true" uuid="63bd8c49-ecdd-4aa6-b068-419047286556">
+	<property name="ireport.zoom" value="1.2100000000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="22"/>
+	<parameter name="idsalida" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     producto.`nombre`,
+     producto.`codigo`,
+     detallesalida.`cantidad`,
+     detallesalida.`precio`,
+     salida.`fecha`,
+     salida.`fechapago`,
+     salida.`idsalida`,
+     salida.`salida`,
+     salida.`total`,
+     usuario.`nombreusuario`,
+     clientes.`nombre` AS clientes_nombres,
+     clientes.`telefono` AS clientes_dependencia,
+     IFNULL((clientes.`nit`),"C/F") AS clientes_nit,
+     clientes.`direccion` AS clientes_cargo,
+     lote.`precio` AS lote_precio,
+     lote.`idlote` AS lote_idlote,
+     unidad.`Nombre` AS unidad_Nombre
+FROM
+     `producto` producto INNER JOIN `lote` lote ON producto.`idproducto` = lote.`producto_idProducto`
+     INNER JOIN `detallesalida` detallesalida ON lote.`idlote` = detallesalida.`lote_idlote`
+     INNER JOIN `salida` salida ON detallesalida.`salida_idsalida` = salida.`idsalida`
+     INNER JOIN `usuario` usuario ON salida.`usuario_idusuario` = usuario.`idusuario`
+     INNER JOIN `clientes` clientes ON salida.`clientes_idclientes` = clientes.`idclientes`
+     INNER JOIN `unidad` unidad ON producto.`idunidad` = unidad.`idunidad`
+WHERE
+     salida.idsalida = $P{idsalida}]]>
+	</queryString>
+	<field name="nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="codigo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cantidad" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="precio" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fechapago" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idsalida" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="salida" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombreusuario" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="clientes_nombres" class="java.lang.String"/>
+	<field name="clientes_dependencia" class="java.lang.String"/>
+	<field name="clientes_nit" class="java.lang.String"/>
+	<field name="clientes_cargo" class="java.lang.String"/>
+	<field name="lote_precio" class="java.lang.Float"/>
+	<field name="lote_idlote" class="java.lang.Integer"/>
+	<field name="unidad_Nombre" class="java.lang.String"/>
+	<sortField name="idsalida"/>
+	<variable name="sumaT" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{cantidad}.doubleValue()*$F{precio}.doubleValue())]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="172">
+			<textField pattern="dd">
+				<reportElement uuid="3ed72265-1257-4166-9878-73e5bbd20464" x="256" y="51" width="22" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2dca2240-3f5b-46e5-8697-fa519991c6f2" x="65" y="121" width="164" height="12"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{clientes_nombres}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="50594e55-573c-409e-89c2-1bdbd014990b" x="66" y="150" width="164" height="12"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{clientes_cargo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ee05eb47-b94c-47ca-8997-1823ba7b966f" x="280" y="151" width="58" height="11"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[!$F{clientes_nit}.isEmpty() ? $F{clientes_nit} : "C/F"]]></textFieldExpression>
+			</textField>
+			<textField pattern="MM">
+				<reportElement uuid="3ed72265-1257-4166-9878-73e5bbd20464" x="289" y="51" width="22" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy">
+				<reportElement uuid="3ed72265-1257-4166-9878-73e5bbd20464" x="323" y="51" width="22" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="28" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="fd4ced77-a359-4098-a02b-458e5cf35296" x="2" y="1" width="38" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="297778fd-bf32-4f28-bd0d-6af96c6abfc3" x="40" y="1" width="181" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre}.concat(" "+$F{unidad_Nombre} )]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="7b9bf041-d099-4f36-b21c-05a3d48eb6c5" x="221" y="0" width="55" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="7b9bf041-d099-4f36-b21c-05a3d48eb6c5" x="289" y="0" width="55" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Double($F{cantidad}.doubleValue()*$F{precio}.doubleValue())]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="35" splitType="Stretch">
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="1af8aa56-b7a8-4b73-bac4-88a2f2fdd8ea" x="289" y="0" width="55" height="14"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sumaT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>

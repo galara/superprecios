@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subreportesalida" language="groovy" pageWidth="386" pageHeight="802" columnWidth="386" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="10a7b0e2-9cbc-4458-8a33-debf3defe6b3">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fecha2" class="java.util.Date"/>
+	<parameter name="id2" class="java.lang.String"/>
+	<parameter name="fecha3" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT
+     usuario.`nombreusuario`,
+     proveedor.`nombre` AS proveedor_proveedor,
+     lote.`cantidad` AS lote_cantidad,
+     lote.`precio` AS lote_precio,
+     lote.`devolucion` AS lote_devolucion,
+     lote.fecha as fecha
+FROM
+     `compra` compra INNER JOIN `usuario` usuario ON compra.`usuario_idusuario` = usuario.`idusuario`
+     INNER JOIN `proveedor` proveedor ON compra.`proveedor_idproveedor` = proveedor.`idproveedor`
+     INNER JOIN `lote` lote ON compra.`idcompra` = lote.`compra_idcompra`
+     INNER JOIN `producto` producto ON lote.`producto_idproducto` = producto.`idproducto`
+WHERE
+	compra.fecha=$P{fecha2} and producto.idproducto=$P{id2}]]>
+	</queryString>
+	<field name="nombreusuario" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="proveedor_proveedor" class="java.lang.String"/>
+	<field name="lote_cantidad" class="java.lang.Float"/>
+	<field name="lote_precio" class="java.lang.Float"/>
+	<field name="lote_devolucion" class="java.lang.Float"/>
+	<field name="fecha" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="total" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{lote_cantidad}.doubleValue()*$F{lote_precio}.doubleValue())]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="21">
+			<staticText>
+				<reportElement uuid="51d7aeba-1db3-4331-bc31-5e4363fc2616" mode="Opaque" x="50" y="0" width="50" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Devolución]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="32db8b0e-945a-444d-81f7-123ea5b78ab6" mode="Opaque" x="198" y="0" width="130" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Proveedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6d4843da-037c-4f46-af04-6c57c7eb75f3" mode="Opaque" x="0" y="0" width="50" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0fcf4358-bd5d-45a7-b1ae-8206862d6113" mode="Opaque" x="100" y="0" width="49" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Precio/U]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0fcf4358-bd5d-45a7-b1ae-8206862d6113" mode="Opaque" x="149" y="0" width="49" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6d4843da-037c-4f46-af04-6c57c7eb75f3" mode="Opaque" x="327" y="0" width="58" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+				<reportElement uuid="4f4c0022-9279-4065-a4cd-7ffc13719f9c" x="0" y="0" width="50" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lote_cantidad}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+				<reportElement uuid="e610c393-e592-43d8-bcdb-3c1f50c04419" x="100" y="0" width="49" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lote_precio}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+				<reportElement uuid="af462b36-3ad4-4729-9706-5f0878485caa" x="50" y="0" width="50" height="24" forecolor="#FF3333"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lote_devolucion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+				<reportElement uuid="e610c393-e592-43d8-bcdb-3c1f50c04419" x="149" y="0" width="49" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Double($F{lote_cantidad}.doubleValue()*$F{lote_precio}.doubleValue())]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="c2715e53-f4bc-44f8-b8b1-e61c1e62beb7" x="198" y="0" width="130" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{proveedor_proveedor}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+				<reportElement uuid="4f4c0022-9279-4065-a4cd-7ffc13719f9c" x="328" y="0" width="58" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="46d337bc-0abd-46da-81b8-5b0ecdd7b000" x="0" y="24" width="386" height="1" forecolor="#666666"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>
